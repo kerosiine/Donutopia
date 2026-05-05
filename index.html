@@ -90,10 +90,6 @@
             50% { box-shadow: 0 0 20px rgba(232, 93, 79, 0.6); }
             100% { box-shadow: 0 0 5px rgba(232, 93, 79, 0.3); }
         }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
         
         .donut-card, .set-card, .feature, .news-card {
             animation: fadeInUp 0.5s ease-out;
@@ -245,6 +241,7 @@
             cursor: pointer;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             transition: all 0.3s ease;
             font-size: 0.95rem;
@@ -275,8 +272,6 @@
         .btn:active {
             transform: translateY(1px);
         }
-        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
-        .btn-outline:hover { background: var(--primary-light); transform: scale(0.98); }
         .donut-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -386,7 +381,6 @@
             max-height: 85vh;
             overflow-y: auto;
         }
-        /* Карточка разработчика - без прокрутки */
         #devModal .modal-content {
             overflow-y: visible;
             max-height: none;
@@ -437,7 +431,7 @@
         .dev-photo { width: 120px; height: 120px; border-radius: 60px; object-fit: cover; border: 4px solid var(--primary); margin: 0 auto 20px; display: block; box-shadow: 0 10px 25px rgba(0,0,0,0.1); transition: all 0.3s ease; }
         .dev-photo:hover { transform: scale(1.05) rotate(3deg); }
         
-        /* КОРЗИНА - С КАРТИНКАМИ */
+        /* КОРЗИНА */
         .cart-item {
             display: flex;
             justify-content: space-between;
@@ -645,10 +639,108 @@
             animation: pulse 0.5s ease;
         }
         
+        /* ===== КРАСИВАЯ СТРАНИЦА ВХОДА ===== */
+        .login-container {
+            max-width: 480px;
+            margin: 40px auto;
+            background: var(--bg-surface);
+            border-radius: 48px;
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            animation: fadeInUp 0.5s ease;
+        }
+        .login-header {
+            background: linear-gradient(135deg, var(--primary), #f4a261);
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .login-header i {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        .login-header h2 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        .login-header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        .login-form {
+            padding: 35px;
+        }
+        .input-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .input-group i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.1rem;
+            z-index: 1;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 16px 18px 16px 48px;
+            border-radius: 40px;
+            border: 2px solid var(--border);
+            background: var(--bg-body);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            color: var(--text-main);
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(232, 93, 79, 0.2);
+        }
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        .login-footer {
+            text-align: center;
+            padding: 20px 35px 35px;
+            border-top: 1px solid var(--border);
+            background: rgba(0,0,0,0.02);
+        }
+        .login-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 12px 18px;
+            border-radius: 40px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        
         @media (max-width: 780px) {
             .cart-item { flex-direction: row; flex-wrap: wrap; }
             .cart-item-image { width: 50px; height: 50px; }
             .cart-quantity { justify-content: center; }
+            .login-container { margin: 20px; }
+            .login-form { padding: 25px; }
         }
     </style>
 </head>
@@ -879,7 +971,39 @@
             </div>`;
         }
         
-        function renderLogin() { if(isAuthenticated()) { setPage('home'); return ''; } return `<div class="section-title">🔐 Вход</div><div style="max-width:400px; margin:0 auto; background:var(--bg-surface); border-radius:40px; padding:30px;"><form id="authForm"><input type="text" id="regName" placeholder="Имя" required><input type="email" id="regEmail" placeholder="Email" required><input type="password" id="regPassword" placeholder="Пароль (мин 4)" required><button type="submit" class="btn" style="width:100%">Войти / Регистрация</button></form></div>`; }
+        // КРАСИВАЯ СТРАНИЦА ВХОДА
+        let loginError = null;
+        function renderLogin() { 
+            if(isAuthenticated()) { setPage('home'); return ''; } 
+            return `<div class="login-container">
+                <div class="login-header">
+                    <i class="fas fa-donut"></i>
+                    <h2>Добро пожаловать!</h2>
+                    <p>Войдите или создайте аккаунт</p>
+                </div>
+                <div class="login-form">
+                    ${loginError ? `<div class="error-message"><i class="fas fa-exclamation-circle"></i> ${loginError}</div>` : ''}
+                    <form id="authForm">
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="regName" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="regEmail" placeholder="Email" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="regPassword" placeholder="Пароль (мин 4 символа)" required>
+                        </div>
+                        <button type="submit" class="btn login-btn"><i class="fas fa-sign-in-alt"></i> Войти / Зарегистрироваться</button>
+                    </form>
+                </div>
+                <div class="login-footer">
+                    <p>🍩 После входа вам откроются корзина, избранное и поддержка</p>
+                </div>
+            </div>`;
+        }
         
         function renderPage(page) {
             if(page === 'home') return renderHome();
@@ -915,7 +1039,20 @@
             document.getElementById('showDeveloperBtn')?.addEventListener('click', showDeveloperCard);
             document.getElementById('searchBtn')?.addEventListener('click', () => { searchQuery = document.getElementById('searchInput')?.value || ''; if(currentPage === 'home') renderCurrentPage(); else setPage('home'); });
             document.getElementById('searchInput')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') { searchQuery = e.target.value; if(currentPage === 'home') renderCurrentPage(); else setPage('home'); } });
-            document.getElementById('authForm')?.addEventListener('submit', (e) => { e.preventDefault(); const name = document.getElementById('regName')?.value.trim(), email = document.getElementById('regEmail')?.value.trim(), pwd = document.getElementById('regPassword')?.value; if(!name || !email || !pwd || pwd.length<4) { alert("Заполните все поля"); return; } loginUser(email, name); setPage('home'); });
+            
+            const authForm = document.getElementById('authForm');
+            if(authForm) {
+                authForm.onsubmit = (e) => { 
+                    e.preventDefault(); 
+                    loginError = null;
+                    const name = document.getElementById('regName')?.value.trim();
+                    const email = document.getElementById('regEmail')?.value.trim();
+                    const pwd = document.getElementById('regPassword')?.value;
+                    if(!name || !email || !pwd) { loginError = "Заполните все поля!"; renderCurrentPage(); return; }
+                    if(pwd.length < 4) { loginError = "Пароль должен быть не менее 4 символов!"; renderCurrentPage(); return; }
+                    loginUser(email, name); 
+                };
+            }
             
             const deliveryForm = document.getElementById('deliveryForm');
             if(deliveryForm) {
@@ -943,7 +1080,7 @@
         }
         
         function renderCurrentPage() { loadUserData(); document.getElementById('app').innerHTML = renderPage(currentPage); attachEvents(); }
-        function setPage(page) { currentPage = page; renderCurrentPage(); window.scrollTo(0,0); }
+        function setPage(page) { currentPage = page; loginError = null; renderCurrentPage(); window.scrollTo(0,0); }
         
         // Модалка деталей
         const modalDiv = document.createElement('div'); modalDiv.id = 'detailModal'; modalDiv.className = 'modal';
@@ -954,7 +1091,7 @@
         document.getElementById('modalAddToCartBtn')?.addEventListener('click', () => { if(selectedItem) { addToCart(selectedItem.id, selectedItem.isSet); closeModal(); } });
         document.getElementById('modalFavBtn')?.addEventListener('click', () => { if(selectedItem) toggleFavorite(selectedItem.id, selectedItem.isSet); });
         
-        // Модалка разработчика — красивая, без прокрутки
+        // Модалка разработчика
         const devModal = document.createElement('div'); devModal.id = 'devModal'; devModal.className = 'modal';
         devModal.innerHTML = `<div class="modal-content" style="max-width:500px; overflow-y: visible;">
             <div style="text-align:right;"><button id="closeDevModal" style="background:none; border:none; font-size:28px; cursor:pointer;">&times;</button></div>
