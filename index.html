@@ -398,6 +398,9 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid var(--border);
             backdrop-filter: blur(4px);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .donut-card:hover,
@@ -417,60 +420,47 @@
         .set-card:hover .card-img {
             transform: scale(1.05);
         }
-.donut-card, .set-card {
-    background: var(--bg-card);
-    border-radius: 32px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid var(--border);
-    backdrop-filter: blur(4px);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
 
-.card-content {
-    padding: 20px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
+        .card-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
 
-.donut-title {
-    font-size: 1.35rem;
-    font-weight: 700;
-    transition: color 0.3s ease;
-    margin-bottom: 8px;
-}
+        .donut-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            transition: color 0.3s ease;
+            margin-bottom: 8px;
+        }
 
-.donut-desc {
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    margin-bottom: 12px;
-    flex: 1;
-}
+        .donut-desc {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            flex: 1;
+        }
 
-.price-wrapper {
-    margin-top: auto;
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 8px;
-}
+        .price-wrapper {
+            margin-top: auto;
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
 
-.price {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--primary);
-}
+        .price {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
 
-.old-price {
-    font-size: 1rem;
-    text-decoration: line-through;
-    color: var(--text-muted);
-}
+        .old-price {
+            font-size: 1rem;
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
 
         .section-title {
             font-size: 2rem;
@@ -548,6 +538,140 @@
         .feature:hover i {
             transform: scale(1.1) rotate(5deg);
             animation: pulse 0.5s ease;
+        }
+
+        /* СТИЛИ ДЛЯ КАРУСЕЛИ */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            border-radius: 40px;
+            overflow: hidden;
+            margin: 40px 0 50px;
+            box-shadow: var(--shadow-hover);
+            background: var(--bg-surface);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border);
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 460px;
+        }
+
+        .slide {
+            min-width: 100%;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+        }
+
+        .slide-content {
+            background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            width: 100%;
+            padding: 40px 50px;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .slide-content h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .slide-content p {
+            font-size: 1.1rem;
+            max-width: 60%;
+            opacity: 0.95;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 60px;
+            cursor: pointer;
+            color: white;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .slider-btn:hover {
+            background: var(--primary);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .btn-prev {
+            left: 20px;
+        }
+
+        .btn-next {
+            right: 20px;
+        }
+
+        .indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            z-index: 20;
+        }
+
+        .indicator {
+            width: 40px;
+            height: 4px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: var(--primary);
+            width: 55px;
+        }
+
+        @media (max-width: 768px) {
+            .slider {
+                height: 380px;
+            }
+            .slide-content {
+                padding: 30px 25px;
+            }
+            .slide-content h2 {
+                font-size: 1.4rem;
+            }
+            .slide-content p {
+                font-size: 0.85rem;
+                max-width: 80%;
+            }
+            .slider-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 1.2rem;
+            }
+            .indicator {
+                width: 28px;
+            }
+            .indicator.active {
+                width: 40px;
+            }
         }
 
         footer {
@@ -663,7 +787,6 @@
             transform: scale(1.05);
         }
 
-        /* Стили для страницы аккаунта */
         .account-card {
             background: var(--bg-surface);
             border-radius: 32px;
@@ -1104,197 +1227,195 @@
                 flex-direction: row;
                 flex-wrap: wrap;
             }
-
             .cart-item-image {
                 width: 50px;
                 height: 50px;
             }
-
             .cart-quantity {
                 justify-content: center;
             }
-
             .login-container {
                 margin: 20px;
             }
-
             .login-form {
                 padding: 25px;
             }
         }
+
         /* Стили для страницы "О нас" */
-.about-hero {
-    background: linear-gradient(135deg, var(--primary-light), var(--accent-soft));
-    border-radius: 40px;
-    padding: 50px 40px;
-    text-align: center;
-    margin-bottom: 40px;
-}
+        .about-hero {
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-soft));
+            border-radius: 40px;
+            padding: 50px 40px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
-.about-hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-}
+        .about-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 25px;
-    margin: 50px 0;
-}
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
 
-.stat-card {
-    background: var(--bg-surface);
-    border-radius: 28px;
-    padding: 30px 20px;
-    text-align: center;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-}
+        .stat-card {
+            background: var(--bg-surface);
+            border-radius: 28px;
+            padding: 30px 20px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
 
-.stat-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-hover);
-}
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
 
-.stat-card .stat-number {
-    font-size: 2.8rem;
-    font-weight: 800;
-    color: var(--primary);
-}
+        .stat-card .stat-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
 
-.stat-card .stat-label {
-    color: var(--text-muted);
-    margin-top: 10px;
-}
+        .stat-card .stat-label {
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
 
-.about-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin: 40px 0;
-}
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
 
-.about-card {
-    background: var(--bg-surface);
-    border-radius: 28px;
-    padding: 30px;
-    text-align: center;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-}
+        .about-card {
+            background: var(--bg-surface);
+            border-radius: 28px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
 
-.about-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-hover);
-}
+        .about-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
 
-.about-card i {
-    font-size: 3rem;
-    color: var(--primary);
-    margin-bottom: 20px;
-}
+        .about-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
 
-.about-card h3 {
-    font-size: 1.4rem;
-    margin-bottom: 15px;
-}
+        .about-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
 
-.about-card p {
-    color: var(--text-muted);
-}
+        .about-card p {
+            color: var(--text-muted);
+        }
 
-.values-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-    margin: 40px 0;
-}
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
 
-.value-card {
-    background: var(--bg-surface);
-    border-radius: 24px;
-    padding: 25px;
-    text-align: center;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-}
+        .value-card {
+            background: var(--bg-surface);
+            border-radius: 24px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
 
-.value-card:hover {
-    transform: translateY(-5px);
-    background: var(--primary-light);
-}
+        .value-card:hover {
+            transform: translateY(-5px);
+            background: var(--primary-light);
+        }
 
-.value-card i {
-    font-size: 2.5rem;
-    color: var(--primary);
-    margin-bottom: 15px;
-}
+        .value-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
 
-.value-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-}
+        .value-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
 
-.value-card p {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
+        .value-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
 
-.reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-    margin: 40px 0;
-}
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
 
-.review-card {
-    background: var(--bg-surface);
-    border-radius: 24px;
-    padding: 25px;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-}
+        .review-card {
+            background: var(--bg-surface);
+            border-radius: 24px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
 
-.review-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
-}
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
 
-.review-stars {
-    color: #f4a261;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-}
+        .review-stars {
+            color: #f4a261;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
 
-.review-text {
-    font-style: italic;
-    margin-bottom: 15px;
-    color: var(--text-main);
-}
+        .review-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: var(--text-main);
+        }
 
-.review-author {
-    font-weight: 600;
-    color: var(--primary);
-}
-body.dark input,
-body.dark select,
-body.dark textarea,
-body.dark .cart-quantity,
-body.dark .cart-quantity span {
-    color: #ffffff !important;
-    background: #3a3530 !important;
-}
+        .review-author {
+            font-weight: 600;
+            color: var(--primary);
+        }
 
-body.dark input::placeholder,
-body.dark textarea::placeholder {
-    color: #bcb2a6 !important;
-}
+        body.dark input,
+        body.dark select,
+        body.dark textarea,
+        body.dark .cart-quantity,
+        body.dark .cart-quantity span {
+            color: #ffffff !important;
+            background: #3a3530 !important;
+        }
 
-body.dark .cart-quantity button {
-    color: var(--primary) !important;
-    background: transparent !important;
-}
+        body.dark input::placeholder,
+        body.dark textarea::placeholder {
+            color: #bcb2a6 !important;
+        }
+
+        body.dark .cart-quantity button {
+            color: var(--primary) !important;
+            background: transparent !important;
+        }
     </style>
 </head>
 <body>
@@ -1465,6 +1586,20 @@ body.dark .cart-quantity button {
             }
         ];
 
+        // ========== 10 СЛАЙДОВ ДЛЯ КАРУСЕЛИ ==========
+                const slidesData = [
+            { image: "images/slide1.jpg", title: "🍩 Самые свежие пончики", desc: "Каждое утро мы печём для вас нежнейшие пончики!" },
+            { image: "images/slide2.jpg", title: "🍫 Шоколадное наслаждение", desc: "Тёмная глазурь из бельгийского шоколада — попробуйте!" },
+            { image: "images/slide3.jpg", title: "🎁 Наборы на любой вкус", desc: "Соберите свой идеальный набор или выберите готовый." },
+            { image: "images/slide4.jpg", title: "🍓 Клубничный рай", desc: "Сезонная новинка — пончики с ягодной начинкой." },
+            { image: "images/slide5.jpg", title: "🚚 Бесплатная доставка", desc: "При заказе от 15 Br доставка по городу бесплатно!" },
+            { image: "images/slide6.jpg", title: "☕ Пончики + кофе", desc: "Идеальное сочетание для утреннего настроения." },
+            { image: "images/slide7.jpg", title: "✨ Фисташковая симфония", desc: "Изысканный вкус для гурманов." },
+            { image: "images/slide8.jpg", title: "🍬 Сладкий подарок", desc: "Порадуйте близких нашими наборами." },
+            { image: "images/slide9.jpg", title: "🍩 Donutopia — любовь с первой глазури", desc: "Создаём настроение каждый день." },
+            { image: "images/slide10.jpg", title: "🔥 Специальное предложение", desc: "Скидка 20% на первый заказ по промокоду DONUT20" }
+        ];
+
         let currentUser = JSON.parse(localStorage.getItem('donut_user')) || null;
 
         function isAuthenticated() {
@@ -1472,10 +1607,7 @@ body.dark .cart-quantity button {
         }
 
         function loginUser(email, name) {
-            currentUser = {
-                email,
-                name
-            };
+            currentUser = { email, name };
             localStorage.setItem('donut_user', JSON.stringify(currentUser));
             updateAuthUI();
             loadUserData();
@@ -1502,7 +1634,6 @@ body.dark .cart-quantity button {
             const accountLink = document.getElementById('accountLink');
 
             if (isAuthenticated()) {
-                // В шапке просто "Аккаунт", без имени пользователя
                 if (loginBtn) loginBtn.classList.add('hidden-link');
                 if (cartLink) cartLink.classList.remove('hidden-link');
                 if (favLink) favLink.classList.remove('hidden-link');
@@ -1517,8 +1648,7 @@ body.dark .cart-quantity button {
             }
         }
 
-        let cart = [],
-            favorites = [];
+        let cart = [], favorites = [];
 
         function loadUserData() {
             if (isAuthenticated()) {
@@ -1554,11 +1684,7 @@ body.dark .cart-quantity button {
             }
             let item = cart.find(i => i.id === id && i.isSet === isSet);
             if (item) item.quantity++;
-            else cart.push({
-                id,
-                quantity: 1,
-                isSet
-            });
+            else cart.push({ id, quantity: 1, isSet });
             saveCart();
             alert("✅ Добавлено в корзину!");
             return true;
@@ -1611,10 +1737,7 @@ body.dark .cart-quantity button {
             }
             const item = getItemById(id, isSet);
             if (!item) return;
-            selectedItem = {
-                ...item,
-                isSet
-            };
+            selectedItem = { ...item, isSet };
             const isFav = favorites.includes(`${id}_${isSet}`);
             document.getElementById('detailImage').style.backgroundImage = `url('${item.image}')`;
             document.getElementById('detailTitle').innerText = item.name;
@@ -1629,9 +1752,7 @@ body.dark .cart-quantity button {
             selectedItem = null;
         }
 
-        let currentPage = "home",
-            currentCategory = "all",
-            searchQuery = "";
+        let currentPage = "home", currentCategory = "all", searchQuery = "";
 
         function getFilteredDonuts() {
             let filtered = donuts;
@@ -1645,35 +1766,76 @@ body.dark .cart-quantity button {
         }
 
         function renderDonutCard(d) {
-    return `<div class="donut-card" data-id="${d.id}" data-set="false">
-        <div class="card-img" style="background-image: url('${d.image}');"></div>
-        <div class="card-content">
-            <div class="donut-title">${d.name}</div>
-            <div class="donut-desc">${d.desc}</div>
-            <div class="price-wrapper">
-                <span class="price">${d.price.toFixed(2)} Br</span>
-            </div>
-        </div>
-    </div>`;
-}
+            return `<div class="donut-card" data-id="${d.id}" data-set="false">
+                <div class="card-img" style="background-image: url('${d.image}');"></div>
+                <div class="card-content">
+                    <div class="donut-title">${d.name}</div>
+                    <div class="donut-desc">${d.desc}</div>
+                    <div class="price-wrapper">
+                        <span class="price">${d.price.toFixed(2)} Br</span>
+                    </div>
+                </div>
+            </div>`;
+        }
 
-function renderSetCard(s) {
-    return `<div class="set-card" data-id="${s.id}" data-set="true">
-        <div class="card-img" style="background-image: url('${s.image}');"></div>
-        <div class="card-content">
-            <div class="donut-title">${s.name}</div>
-            <div class="donut-desc">${s.desc}</div>
-            <div class="price-wrapper">
-                <span class="price">${s.price.toFixed(2)} Br</span>
-                ${s.oldPrice ? `<span class="old-price">${s.oldPrice.toFixed(2)} Br</span>` : ''}
-            </div>
-        </div>
-    </div>`;
-}
+        function renderSetCard(s) {
+            return `<div class="set-card" data-id="${s.id}" data-set="true">
+                <div class="card-img" style="background-image: url('${s.image}');"></div>
+                <div class="card-content">
+                    <div class="donut-title">${s.name}</div>
+                    <div class="donut-desc">${s.desc}</div>
+                    <div class="price-wrapper">
+                        <span class="price">${s.price.toFixed(2)} Br</span>
+                        ${s.oldPrice ? `<span class="old-price">${s.oldPrice.toFixed(2)} Br</span>` : ''}
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        // Функция рендера карусели
+        function renderSlider() {
+            let slidesHtml = slidesData.map((slide, idx) => `<div class="slide" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.2)), url('${slide.image}');"><div class="slide-content"><h2>${slide.title}</h2><p>${slide.desc}</p></div></div>`).join('');
+            let indicatorsHtml = slidesData.map((_, idx) => `<div class="indicator" data-index="${idx}"></div>`).join('');
+            return `<div class="slider-container">
+                <div class="slider" id="mainSlider">${slidesHtml}</div>
+                <button class="slider-btn btn-prev" id="sliderPrev"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn btn-next" id="sliderNext"><i class="fas fa-chevron-right"></i></button>
+                <div class="indicators" id="sliderIndicators">${indicatorsHtml}</div>
+            </div>`;
+        }
+
+        // Инициализация карусели
+        function initSlider() {
+            const slider = document.getElementById('mainSlider');
+            if (!slider) return;
+            let currentIndex = 0;
+            const slidesCount = slidesData.length;
+            
+            const updateSlider = () => { 
+                slider.style.transform = `translateX(-${currentIndex * 100}%)`; 
+                document.querySelectorAll('.indicator').forEach((ind, i) => { 
+                    if (i === currentIndex) ind.classList.add('active'); 
+                    else ind.classList.remove('active'); 
+                }); 
+            };
+            
+            const nextSlide = () => { currentIndex = (currentIndex + 1) % slidesCount; updateSlider(); };
+            const prevSlide = () => { currentIndex = (currentIndex - 1 + slidesCount) % slidesCount; updateSlider(); };
+            
+            document.getElementById('sliderNext')?.addEventListener('click', nextSlide);
+            document.getElementById('sliderPrev')?.addEventListener('click', prevSlide);
+            document.querySelectorAll('.indicator').forEach(ind => { 
+                ind.addEventListener('click', (e) => { currentIndex = parseInt(e.target.dataset.index); updateSlider(); }); 
+            });
+            
+            setInterval(nextSlide, 6000);
+            updateSlider();
+        }
 
         function renderHome() {
             const filtered = getFilteredDonuts();
-            return `<section style="text-align:center; margin:20px 0 40px"><h1 style="font-size:3rem;">Самые вкусные пончики 🍩</h1><p>Свежая выпечка каждый день</p><button class="btn" id="scrollToDonuts">🍩 Смотреть пончики</button></section>
+            return `<section style="text-align:center; margin:20px 0 0px"><h1 style="font-size:3rem;">Самые вкусные пончики 🍩</h1><p>Свежая выпечка каждый день</p><button class="btn" id="scrollToDonuts">🍩 Смотреть пончики</button></section>
+            ${renderSlider()}
             <div class="features"><div class="feature"><i class="fas fa-seedling"></i><h3>Натуральные</h3></div><div class="feature"><i class="fas fa-stopwatch"></i><h3>Быстрая доставка</h3></div><div class="feature"><i class="fas fa-heart"></i><h3>С любовью</h3></div></div>
             <div class="section-title" id="catalogSection">🍩 Наши пончики</div>
             <div class="category-buttons"><button class="cat-btn ${currentCategory === 'all' ? 'active' : ''}" data-cat="all">Все</button><button class="cat-btn ${currentCategory === 'glaze' ? 'active' : ''}" data-cat="glaze">С глазурью</button><button class="cat-btn ${currentCategory === 'filling' ? 'active' : ''}" data-cat="filling">С начинкой</button></div>
@@ -1744,10 +1906,7 @@ function renderSetCard(s) {
             if (!isAuthenticated()) return ``;
             let favItems = favorites.map(key => {
                 let [id, isSet] = key.split('_');
-                return {
-                    ...getItemById(parseInt(id), isSet === 'true'),
-                    isSet: isSet === 'true'
-                };
+                return { ...getItemById(parseInt(id), isSet === 'true'), isSet: isSet === 'true' };
             }).filter(i => i);
             if (favItems.length === 0) return `<div style="text-align:center; padding:60px;"><i class="far fa-heart fa-3x"></i><h3>Нет избранного</h3><button class="btn" id="toHomeFav">На главную</button></div>`;
             return `<div class="section-title">❤️ Избранное</div><div class="donut-grid">${favItems.map(i => `<div class="donut-card" data-id="${i.id}" data-set="${i.isSet}"><div class="card-img" style="background-image: url('${i.image}');"></div><div class="card-content"><div class="donut-title">${i.name}</div><div class="price">${i.price.toFixed(2)} Br</div></div></div>`).join('')}</div>`;
@@ -1758,49 +1917,44 @@ function renderSetCard(s) {
         }
 
         function renderAbout() {
-    return `
-        <div class="about-hero">
-            <h1>🍩 Donutopia</h1>
-            <p style="font-size:1.2rem; max-width:700px; margin:0 auto;">Мы создаём пончики, которые дарят радость с 2020 года. Натуральные ингредиенты, ручная работа и любовь в каждом укусе.</p>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-card"><div class="stat-number">5+</div><div class="stat-label">лет на рынке</div></div>
-            <div class="stat-card"><div class="stat-number">50 000+</div><div class="stat-label">счастливых клиентов</div></div>
-            <div class="stat-card"><div class="stat-number">15</div><div class="stat-label">видов начинок</div></div>
-            <div class="stat-card"><div class="stat-number">30 мин</div><div class="stat-label">среднее время доставки</div></div>
-        </div>
-
-        <div class="section-title">✨ Наши преимущества</div>
-        <div class="about-grid">
-            <div class="about-card"><i class="fas fa-hand-holding-heart"></i><h3>Ручная работа</h3><p>Каждый пончик создаётся вручную нашими кондитерами с душой и вниманием к деталям.</p></div>
-            <div class="about-card"><i class="fas fa-leaf"></i><h3>Натуральные ингредиенты</h3><p>Используем только свежие продукты без консервантов и искусственных добавок.</p></div>
-            <div class="about-card"><i class="fas fa-truck-fast"></i><h3>Быстрая доставка</h3><p>Доставляем по всему городу за 30-40 минут. Горячие пончики прямо к вашему столу.</p></div>
-            <div class="about-card"><i class="fas fa-percent"></i><h3>Акции и скидки</h3><p>Регулярные акции, скидки для постоянных клиентов и подарки к большим заказам.</p></div>
-        </div>
-
-        <div class="section-title">🌟 Наши ценности</div>
-        <div class="values-grid">
-            <div class="value-card"><i class="fas fa-smile"></i><h3>Качество</h3><p>Тщательно следим за качеством каждого пончика, от замеса теста до финальной глазури.</p></div>
-            <div class="value-card"><i class="fas fa-heart"></i><h3>Забота о клиентах</h3><p>Для нас каждый клиент — особенный. Мы всегда готовы учесть ваши пожелания.</p></div>
-            <div class="value-card"><i class="fas fa-lightbulb"></i><h3>Креативность</h3><p>Постоянно придумываем новые вкусы и удивляем вас необычными сочетаниями.</p></div>
-        </div>
-
-        <div class="section-title">💬 Отзывы наших клиентов</div>
-        <div class="reviews-grid">
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Лучшие пончики в городе! Очень нежные, начинки просто божественные. Доставка быстрая, курьеры вежливые. Рекомендую!"</div><div class="review-author">— Екатерина С.</div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Заказывал набор "Вечеринка" на день рождения. Все гости были в восторге! Спасибо Donutopia за праздник!"</div><div class="review-author">— Алексей М.</div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Обожаю клубничные пончики! Заказываю уже 3-й раз. Всегда свежие, мягкие, глазурь тает во рту."</div><div class="review-author">— Ольга В.</div></div>
-        </div>
-
-        <div style="background:var(--accent-soft); border-radius:40px; padding:40px; margin:40px 0; text-align:center">
-            <h3>🍩 Готовы попробовать наши пончики?</h3>
-            <p style="margin:15px 0">Сделайте заказ прямо сейчас и получите скидку 10% на первый заказ!</p>
-            <button class="btn" id="toHomeFromAbout">🍩 Перейти к пончикам</button>
-            <button class="btn" id="showDeveloperBtn" style="background:transparent; border:2px solid var(--primary); color:var(--primary); margin-left:15px"><i class="fas fa-code"></i> О разработчике</button>
-        </div>
-    `;
-}
+            return `
+                <div class="about-hero">
+                    <h1>🍩 Donutopia</h1>
+                    <p style="font-size:1.2rem; max-width:700px; margin:0 auto;">Мы создаём пончики, которые дарят радость с 2020 года. Натуральные ингредиенты, ручная работа и любовь в каждом укусе.</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="stat-number">5+</div><div class="stat-label">лет на рынке</div></div>
+                    <div class="stat-card"><div class="stat-number">50 000+</div><div class="stat-label">счастливых клиентов</div></div>
+                    <div class="stat-card"><div class="stat-number">15</div><div class="stat-label">видов начинок</div></div>
+                    <div class="stat-card"><div class="stat-number">30 мин</div><div class="stat-label">среднее время доставки</div></div>
+                </div>
+                <div class="section-title">✨ Наши преимущества</div>
+                <div class="about-grid">
+                    <div class="about-card"><i class="fas fa-hand-holding-heart"></i><h3>Ручная работа</h3><p>Каждый пончик создаётся вручную нашими кондитерами с душой и вниманием к деталям.</p></div>
+                    <div class="about-card"><i class="fas fa-leaf"></i><h3>Натуральные ингредиенты</h3><p>Используем только свежие продукты без консервантов и искусственных добавок.</p></div>
+                    <div class="about-card"><i class="fas fa-truck-fast"></i><h3>Быстрая доставка</h3><p>Доставляем по всему городу за 30-40 минут. Горячие пончики прямо к вашему столу.</p></div>
+                    <div class="about-card"><i class="fas fa-percent"></i><h3>Акции и скидки</h3><p>Регулярные акции, скидки для постоянных клиентов и подарки к большим заказам.</p></div>
+                </div>
+                <div class="section-title">🌟 Наши ценности</div>
+                <div class="values-grid">
+                    <div class="value-card"><i class="fas fa-smile"></i><h3>Качество</h3><p>Тщательно следим за качеством каждого пончика, от замеса теста до финальной глазури.</p></div>
+                    <div class="value-card"><i class="fas fa-heart"></i><h3>Забота о клиентах</h3><p>Для нас каждый клиент — особенный. Мы всегда готовы учесть ваши пожелания.</p></div>
+                    <div class="value-card"><i class="fas fa-lightbulb"></i><h3>Креативность</h3><p>Постоянно придумываем новые вкусы и удивляем вас необычными сочетаниями.</p></div>
+                </div>
+                <div class="section-title">💬 Отзывы наших клиентов</div>
+                <div class="reviews-grid">
+                    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Лучшие пончики в городе! Очень нежные, начинки просто божественные. Доставка быстрая, курьеры вежливые. Рекомендую!"</div><div class="review-author">— Екатерина С.</div></div>
+                    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Заказывал набор "Вечеринка" на день рождения. Все гости были в восторге! Спасибо Donutopia за праздник!"</div><div class="review-author">— Алексей М.</div></div>
+                    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Обожаю клубничные пончики! Заказываю уже 3-й раз. Всегда свежие, мягкие, глазурь тает во рту."</div><div class="review-author">— Ольга В.</div></div>
+                </div>
+                <div style="background:var(--accent-soft); border-radius:40px; padding:40px; margin:40px 0; text-align:center">
+                    <h3>🍩 Готовы попробовать наши пончики?</h3>
+                    <p style="margin:15px 0">Сделайте заказ прямо сейчас и получите скидку 10% на первый заказ!</p>
+                    <button class="btn" id="toHomeFromAbout">🍩 Перейти к пончикам</button>
+                    <button class="btn" id="showDeveloperBtn" style="background:transparent; border:2px solid var(--primary); color:var(--primary); margin-left:15px"><i class="fas fa-code"></i> О разработчике</button>
+                </div>
+            `;
+        }
 
         function renderSupport() {
             if (!isAuthenticated()) return ``;
@@ -1896,8 +2050,7 @@ function renderSetCard(s) {
 
         function attachEvents() {
             document.querySelectorAll('.donut-card, .set-card').forEach(el => {
-                let id = parseInt(el.dataset.id),
-                    isSet = el.dataset.set === 'true';
+                let id = parseInt(el.dataset.id), isSet = el.dataset.set === 'true';
                 el.onclick = (e) => {
                     if (!e.target.closest('.cart-quantity') && !e.target.closest('.cart-remove')) showDetail(id, isSet);
                 };
@@ -1909,9 +2062,7 @@ function renderSetCard(s) {
                 };
             });
             document.querySelectorAll('.qty-minus, .qty-plus').forEach(btn => {
-                let id = parseInt(btn.dataset.id),
-                    isSet = btn.dataset.set === 'true',
-                    delta = btn.classList.contains('qty-plus') ? 1 : -1;
+                let id = parseInt(btn.dataset.id), isSet = btn.dataset.set === 'true', delta = btn.classList.contains('qty-plus') ? 1 : -1;
                 btn.onclick = () => updateQuantity(id, delta, isSet);
             });
             document.querySelectorAll('.cart-remove').forEach(btn => {
@@ -1927,14 +2078,10 @@ function renderSetCard(s) {
             document.getElementById('toHomeFav')?.addEventListener('click', () => setPage('home'));
             document.getElementById('scrollToDonuts')?.addEventListener('click', () => {
                 setPage('home');
-                setTimeout(() => document.getElementById('catalogSection')?.scrollIntoView({
-                    behavior: 'smooth'
-                }), 100);
+                setTimeout(() => document.getElementById('catalogSection')?.scrollIntoView({ behavior: 'smooth' }), 100);
             });
             document.getElementById('showDeveloperBtn')?.addEventListener('click', showDeveloperCard);
-            document.getElementById('logoutAccountBtn')?.addEventListener('click', () => {
-                logoutUser();
-            });
+            document.getElementById('logoutAccountBtn')?.addEventListener('click', () => { logoutUser(); });
             document.getElementById('searchBtn')?.addEventListener('click', () => {
                 searchQuery = document.getElementById('searchInput')?.value || '';
                 if (currentPage === 'home') renderCurrentPage();
@@ -2019,6 +2166,7 @@ function renderSetCard(s) {
             loadUserData();
             document.getElementById('app').innerHTML = renderPage(currentPage);
             attachEvents();
+            if (currentPage === 'home') initSlider();
         }
 
         function setPage(page) {
